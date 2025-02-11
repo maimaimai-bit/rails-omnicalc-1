@@ -22,7 +22,11 @@ class CalculatorsController < ApplicationController
     @apr = params[:apr].to_f
     @years = params[:years].to_i
     @principal = params[:principal].to_f
+    
+    # Format APR as percentage with 4 decimal places
     @formatted_apr = "%.4f%" % @apr
+    
+    # Calculate monthly payment
     monthly_apr = @apr / 100 / 12
     @monthly_payment = (@principal * monthly_apr) / (1 - (1 + monthly_apr) ** (-@years * 12))
   end
