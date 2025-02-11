@@ -24,11 +24,12 @@ class CalculatorsController < ApplicationController
     @principal = params[:principal].to_f
     
     # Format APR as percentage with 4 decimal places
-    @formatted_apr = "%.4f%" % @apr
+    @formatted_apr = format('%.4f%%', @apr)  # Note the double %% for literal % sign
     
     # Calculate monthly payment
     monthly_apr = @apr / 100 / 12
     @monthly_payment = (@principal * monthly_apr) / (1 - (1 + monthly_apr) ** (-@years * 12))
+    @monthly_payment = @monthly_payment.round(2)
   end
 
   def new_random
